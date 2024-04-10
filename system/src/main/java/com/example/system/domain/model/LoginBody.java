@@ -1,10 +1,12 @@
 package com.example.system.domain.model;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
+import org.hibernate.validator.constraints.Length;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -13,7 +15,7 @@ import java.io.Serializable;
  * 登录信息
  */
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
@@ -23,10 +25,14 @@ public class LoginBody implements Serializable {
     /**
      * 用户名
      */
+    @NotBlank(message = "{user.username.isNotBlank}")
+    @Length(min = 2, max = 20, message = "{user.username.not.match}")
     private String username;
     /**
      * 密码
      */
+    @NotBlank(message = "{user.password.isNotBlank}")
+    @Length(min = 5, max = 20, message = "{user.password.not.match}")
     private transient String password;
     /**
      * 验证码

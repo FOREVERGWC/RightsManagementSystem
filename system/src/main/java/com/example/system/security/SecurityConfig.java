@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    private static final String[] URL_WHITE_LIST = {"/login", "/logout", "/captcha", "/password", "/image/**"};
+    private static final String[] URL_WHITE_LIST = {"/login", "/register", "/logout", "/captcha", "/password", "/image/**"};
     //    @Resource
 //    private LoginFailureHandler loginFailureHandler;
     @Resource

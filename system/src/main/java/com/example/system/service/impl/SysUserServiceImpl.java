@@ -8,6 +8,7 @@ import com.example.system.service.ISysUserService;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -25,5 +26,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
                 .loginTime(new Date()) //
                 .build();
         updateById(sysUser);
+    }
+
+    @Override
+    public boolean checkUsernameUnique(String username) {
+        List<SysUser> list = lambdaQuery() //
+                .eq(SysUser::getUsername, username) //
+                .list();
+        return list.isEmpty();
     }
 }

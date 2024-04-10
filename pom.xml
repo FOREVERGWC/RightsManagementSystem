@@ -22,6 +22,7 @@
         <java.version>17</java.version>
         <spring-boot-starter-web.version>3.2.5-SNAPSHOT</spring-boot-starter-web.version>
         <spring-boot-starter-security.version>3.2.5-SNAPSHOT</spring-boot-starter-security.version>
+        <spring-boot-starter-validation.version>3.2.5-SNAPSHOT</spring-boot-starter-validation.version>
         <mysql-connector-j.version>8.3.0</mysql-connector-j.version>
         <lombok.version>1.18.32</lombok.version>
     </properties>
@@ -37,6 +38,11 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-security</artifactId>
                 <version>${spring-boot-starter-security.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-validation</artifactId>
+                <version>${spring-boot-starter-validation.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>

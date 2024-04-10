@@ -72,13 +72,14 @@ public class SysLoginServiceImpl implements ISysLoginService {
      */
     private void validateCaptcha(String username, String code, String uuid) {
         // TODO: 2024/1/3 获取验证码开关，异步写入错误消息
-        boolean captchaEnabled = true; // 获取验证码开关
+        boolean captchaEnabled = false; // 获取验证码开关
         if (!captchaEnabled) {
             return;
         }
         // 校验Redis验证码
         String verifyKey = CacheConstant.CAPTCHA_CODE_KEY + uuid;
         String captcha = redisUtils.getCacheObject(verifyKey);
+        redisUtils.deleteObject(verifyKey);
         if (captcha == null) {
             sysLoginInfoService.recordSysLoginInfo(username, Constant.LOGIN_FAIL, MessageUtils.getMsg("user.captcha.expire"));
             throw new CaptchaExpireException();

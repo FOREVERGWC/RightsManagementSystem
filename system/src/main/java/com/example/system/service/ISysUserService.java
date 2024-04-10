@@ -1,7 +1,7 @@
 package com.example.system.service;
 
-import com.example.system.domain.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.system.domain.entity.SysUser;
 
 /**
  * <p>
@@ -15,4 +15,12 @@ public interface ISysUserService extends IService<SysUser> {
      * @param userId 用户ID
      */
     void recordLoginInfo(Long userId);
+
+    /**
+     * 根据用户名判断是否唯一
+     *
+     * @param username 用户名
+     * @return 结果
+     */
+    boolean checkUsernameUnique(String username);
 }

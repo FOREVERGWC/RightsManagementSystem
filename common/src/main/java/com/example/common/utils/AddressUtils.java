@@ -14,7 +14,7 @@ public class AddressUtils {
     private static final String UNKNOWN = "XX XX XX";
 
     public static String getRealAddressByIP(String ip) {
-        if (NetUtil.isInnerIP(ip)) {
+        if ("0:0:0:0:0:0:0:1".equals(ip) || NetUtil.isInnerIP(ip)) {
             return "内网IP";
         }
         try (HttpResponse response = HttpUtil.createGet(StrUtil.format(IP_URL, ip)).execute()) {

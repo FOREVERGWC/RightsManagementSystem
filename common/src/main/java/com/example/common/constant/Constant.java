@@ -6,6 +6,10 @@ public class Constant {
      */
     public static final String DEFAULT_PASSWORD = "123456";
     /**
+     * 注册成功
+     */
+    public static final Integer REGISTER_SUCCESS = 0;
+    /**
      * 登录成功
      */
     public static final Integer LOGIN_SUCCESS = 0;
