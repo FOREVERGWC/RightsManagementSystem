@@ -1,4 +1,4 @@
-package com.example.admin.controller.system;
+package com.example.controller.system;
 
 import com.example.common.constant.UserConstant;
 import com.example.common.domain.R;
