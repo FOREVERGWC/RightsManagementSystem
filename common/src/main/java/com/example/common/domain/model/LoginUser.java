@@ -1,6 +1,6 @@
-package com.example.system.domain.model;
+package com.example.common.domain.model;
 
-import com.example.system.domain.entity.SysUser;
+import com.example.common.domain.entity.SysUser;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

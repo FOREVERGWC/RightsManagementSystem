@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
-import com.example.system.domain.entity.SysUser;
+import com.example.common.domain.entity.SysUser;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

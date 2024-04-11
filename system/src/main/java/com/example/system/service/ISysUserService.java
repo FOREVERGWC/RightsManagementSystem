@@ -1,7 +1,7 @@
 package com.example.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.system.domain.entity.SysUser;
+import com.example.common.domain.entity.SysUser;
 
 /**
  * <p>

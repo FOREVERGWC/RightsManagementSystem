@@ -1,7 +1,7 @@
 package com.example.system.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.example.system.domain.BaseEntity;
+import com.example.common.domain.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.Accessors;

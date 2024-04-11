@@ -1,6 +1,6 @@
 package com.example.system.controller;
 
-import com.example.system.domain.entity.SysUser;
+import com.example.common.domain.entity.SysUser;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import com.example.system.service.ISysUserService;

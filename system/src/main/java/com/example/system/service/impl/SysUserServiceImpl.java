@@ -2,7 +2,7 @@ package com.example.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.common.utils.ServletUtils;
-import com.example.system.domain.entity.SysUser;
+import com.example.common.domain.entity.SysUser;
 import com.example.system.mapper.SysUserMapper;
 import com.example.system.service.ISysUserService;
 import org.springframework.stereotype.Service;

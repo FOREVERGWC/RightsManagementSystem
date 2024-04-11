@@ -9,7 +9,7 @@ import com.example.common.exception.user.*;
 import com.example.common.utils.MessageUtils;
 import com.example.common.utils.RedisUtils;
 import com.example.system.context.AuthenticationContextHolder;
-import com.example.system.domain.model.LoginUser;
+import com.example.common.domain.model.LoginUser;
 import com.example.system.service.ISysLoginInfoService;
 import com.example.system.service.ISysLoginService;
 import com.example.system.service.ISysTokenService;

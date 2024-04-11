@@ -1,5 +1,8 @@
 package com.example.common.utils;
 
+import com.example.common.constant.HttpConstant;
+import com.example.common.domain.model.LoginUser;
+import com.example.common.exception.ServiceException;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,6 +15,19 @@ public class UserUtils {
      */
     public static Authentication getAuthentication() {
         return SecurityContextHolder.getContext().getAuthentication();
+    }
+
+    /**
+     * 获取当前用户
+     *
+     * @return 用户
+     */
+    public static LoginUser getLoginUser() {
+        try {
+            return (LoginUser) getAuthentication().getPrincipal();
+        } catch (Exception e) {
+            throw new ServiceException(HttpConstant.UNAUTHORIZED, "获取用户信息异常");
+        }
     }
 
     /**

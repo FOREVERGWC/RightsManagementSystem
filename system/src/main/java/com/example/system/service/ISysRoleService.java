@@ -1,7 +1,9 @@
 package com.example.system.service;
 
-import com.example.system.domain.entity.SysRole;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.common.domain.entity.SysRole;
+
+import java.util.Set;
 
 /**
  * <p>
@@ -9,5 +11,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  */
 public interface ISysRoleService extends IService<SysRole> {
-
+    /**
+     * 根据用户ID查询权限
+     *
+     * @param id 用户ID
+     * @return 权限列表
+     */
+    Set<String> getRolePermsByUserId(Long id);
 }

@@ -13,7 +13,7 @@ import com.example.common.constant.UserConstant;
 import com.example.common.utils.AddressUtils;
 import com.example.common.utils.RedisUtils;
 import com.example.common.utils.ServletUtils;
-import com.example.system.domain.model.LoginUser;
+import com.example.common.domain.model.LoginUser;
 import com.example.system.service.ISysTokenService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;

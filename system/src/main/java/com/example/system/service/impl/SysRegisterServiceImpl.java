@@ -10,7 +10,7 @@ import com.example.common.utils.MessageUtils;
 import com.example.common.utils.RedisUtils;
 import com.example.common.utils.SecurityUtils;
 import com.example.common.utils.UserUtils;
-import com.example.system.domain.entity.SysUser;
+import com.example.common.domain.entity.SysUser;
 import com.example.system.service.ISysLoginInfoService;
 import com.example.system.service.ISysRegisterService;
 import com.example.system.service.ISysUserService;

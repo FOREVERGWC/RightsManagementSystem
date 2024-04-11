@@ -2,7 +2,7 @@ package com.example.system.security.filter;
 
 import cn.hutool.extra.spring.SpringUtil;
 import com.example.common.utils.UserUtils;
-import com.example.system.domain.model.LoginUser;
+import com.example.common.domain.model.LoginUser;
 import com.example.system.service.ISysTokenService;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.FilterChain;

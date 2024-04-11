@@ -1,8 +1,7 @@
 package com.example.system.service;
 
-import com.example.system.domain.model.LoginUser;
+import com.example.common.domain.model.LoginUser;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.stereotype.Repository;
 
 /**
  * <p>

@@ -1,8 +1,8 @@
-package com.example.system.domain.entity;
+package com.example.common.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.example.system.domain.BaseEntity;
+import com.example.common.domain.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -38,7 +38,7 @@ public class SysUser extends BaseEntity {
      * 密码
      */
     @Schema(description = "密码")
-    private String password;
+    private transient String password;
     /**
      * 部门ID
      */
