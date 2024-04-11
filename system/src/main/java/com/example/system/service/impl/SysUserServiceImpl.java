@@ -35,4 +35,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
                 .list();
         return list.isEmpty();
     }
+
+    @Override
+    public SysUser getByUsername(String username) {
+        return lambdaQuery() //
+                .eq(SysUser::getUsername, username) //
+                .one();
+    }
 }

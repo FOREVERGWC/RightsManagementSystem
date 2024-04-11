@@ -23,4 +23,12 @@ public interface ISysUserService extends IService<SysUser> {
      * @return 结果
      */
     boolean checkUsernameUnique(String username);
+
+    /**
+     * 根据用户名获取用户对象
+     *
+     * @param username 用户名
+     * @return 用户对象
+     */
+    SysUser getByUsername(String username);
 }

@@ -1,7 +1,10 @@
 package com.example.system.service;
 
-import com.example.system.domain.entity.SysMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.system.domain.entity.SysMenu;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -9,5 +12,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  */
 public interface ISysMenuService extends IService<SysMenu> {
-
+    /**
+     * 根据角色ID列表批量查询菜单权限
+     *
+     * @param roleIds 角色ID列表
+     * @return 菜单权限列表
+     */
+    Set<String> getPermsByRoleIds(List<Long> roleIds);
 }

@@ -1,5 +1,6 @@
 package com.example.system.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.example.system.domain.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -9,6 +10,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -37,6 +39,11 @@ public class SysUser extends BaseEntity {
      */
     @Schema(description = "密码")
     private String password;
+    /**
+     * 部门ID
+     */
+    @Schema(description = "部门ID")
+    private Long deptId;
     /**
      * 用户头像
      */
@@ -72,4 +79,10 @@ public class SysUser extends BaseEntity {
      */
     @Schema(description = "最后登录时间")
     private Date loginTime;
+    /**
+     * 用户权限
+     */
+    @Schema(description = "用户权限")
+    @TableField(exist = false)
+    private List<SysRole> roles;
 }
