@@ -31,6 +31,19 @@ public class UserUtils {
     }
 
     /**
+     * 获取当前用户ID
+     *
+     * @return 用户ID
+     */
+    public static Long getLoginUserId() {
+        try {
+            return getLoginUser().getUserId();
+        } catch (Exception e) {
+            throw new ServiceException(HttpConstant.UNAUTHORIZED, "获取用户信息异常");
+        }
+    }
+
+    /**
      * 获取当前用户名
      *
      * @return 用户名

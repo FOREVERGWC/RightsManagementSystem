@@ -1,5 +1,6 @@
 package com.example.system.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.example.common.domain.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -8,6 +9,8 @@ import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -81,4 +84,9 @@ public class SysMenu extends BaseEntity {
      */
     @Schema(description = "是否可见（0否、1是）")
     private Integer isVisible;
+    /**
+     * 子菜单
+     */
+    @TableField(exist = false)
+    private List<SysMenu> children = new ArrayList<>();
 }
