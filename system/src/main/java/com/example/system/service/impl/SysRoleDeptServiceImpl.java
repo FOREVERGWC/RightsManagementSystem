@@ -1,10 +1,12 @@
 package com.example.system.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.system.domain.mtm.SysRoleDept;
 import com.example.system.mapper.SysRoleDeptMapper;
 import com.example.system.service.ISysRoleDeptService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,5 +15,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SysRoleDeptServiceImpl extends ServiceImpl<SysRoleDeptMapper, SysRoleDept> implements ISysRoleDeptService {
-
+    @Override
+    public void removeByRoleIds(List<Long> roleIds) {
+        lambdaUpdate() //
+                .in(SysRoleDept::getRoleId, roleIds) //
+                .remove();
+    }
 }
