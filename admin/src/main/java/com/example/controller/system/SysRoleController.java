@@ -1,6 +1,7 @@
 package com.example.controller.system;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.common.annotation.Log;
 import com.example.common.constant.MsgConstant;
 import com.example.common.domain.R;
 import com.example.common.domain.dto.add.SysRoleAddDto;
@@ -8,6 +9,7 @@ import com.example.common.domain.dto.edit.StatusEditDto;
 import com.example.common.domain.dto.edit.SysRoleEditDto;
 import com.example.common.domain.entity.SysRole;
 import com.example.common.domain.query.RoleQuery;
+import com.example.common.enums.BusinessType;
 import com.example.system.service.ISysRoleService;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
@@ -22,7 +24,6 @@ public class SysRoleController {
     @Resource
     private ISysRoleService sysRoleService;
 
-    // TODO: 2024/4/12 操作日志
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('system:role:list')")
     public R list(SysRole sysRole) {
@@ -44,6 +45,7 @@ public class SysRoleController {
         return R.success(MsgConstant.QUERY_SUCCESS).put("sysRole", sysRole);
     }
 
+    @Log(title = "角色管理", businessType = BusinessType.INSERT)
     @PostMapping
     @PreAuthorize("hasAuthority('system:role:add')")
     public R add(@Valid @RequestBody SysRoleAddDto dto) {
@@ -57,6 +59,7 @@ public class SysRoleController {
         return R.success(MsgConstant.ADD_SUCCESS);
     }
 
+    @Log(title = "角色管理", businessType = BusinessType.UPDATE)
     @PutMapping
     @PreAuthorize("hasAuthority('system:role:edit')")
     public R edit(@Valid @RequestBody SysRoleEditDto dto) {
@@ -72,6 +75,7 @@ public class SysRoleController {
         return R.success(MsgConstant.EDIT_SUCCESS);
     }
 
+    @Log(title = "角色管理", businessType = BusinessType.UPDATE)
     @PreAuthorize("hasAuthority('system:role:edit')")
     @PutMapping("/status")
     public R status(@RequestBody StatusEditDto dto) {
@@ -79,6 +83,7 @@ public class SysRoleController {
         return R.success(MsgConstant.EDIT_SUCCESS);
     }
 
+    @Log(title = "角色管理", businessType = BusinessType.DELETE)
     @PreAuthorize("hasAuthority('system:role:remove')")
     @DeleteMapping
     public R remove(@RequestBody List<Long> ids) {
