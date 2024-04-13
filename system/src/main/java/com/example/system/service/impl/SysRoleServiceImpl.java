@@ -21,10 +21,7 @@ import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * <p>
@@ -98,13 +95,14 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void remove(List<Long> ids) {
-        for (Long id : ids) {
-            SysRole sysRole = getById(id);
-            List<SysUserRole> sysUserRoles = sysUserRoleService.listByRoleId(id);
-            if (sysUserRoles.size() > 0) {
-                throw new ServiceException(String.format("%1$s已分配，不能删除！", sysRole.getName()));
-            }
-        }
+        List<SysRole> sysRoles = listByIds(ids);
+        Map<Long, List<SysUserRole>> map = sysUserRoleService.listMapByRoleIds(ids);
+        sysRoles.stream() //
+                .filter(sysRole -> map.get(sysRole.getId()) != null && !map.get(sysRole.getId()).isEmpty()) //
+                .findFirst() //
+                .ifPresent(sysRole -> {
+                    throw new ServiceException(String.format("%1$s已分配，不能删除！", sysRole.getName()));
+                });
         sysRoleMenuService.removeByRoleIds(ids);
         sysRoleDeptService.removeByRoleIds(ids);
         removeBatchByIds(ids);
