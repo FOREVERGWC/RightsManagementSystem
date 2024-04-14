@@ -5,9 +5,12 @@ import com.example.common.utils.AddressUtils;
 import com.example.system.domain.entity.SysOperLog;
 import com.example.system.mapper.SysOperLogMapper;
 import com.example.system.service.ISysOperLogService;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 
 /**
  * <p>
@@ -16,10 +19,16 @@ import java.util.Date;
  */
 @Service
 public class SysOperLogServiceImpl extends ServiceImpl<SysOperLogMapper, SysOperLog> implements ISysOperLogService {
+    @Resource
+    private Executor threadPoolTaskExecutor;
+
     @Override
     public void recordOper(SysOperLog sysOperLog) {
-        sysOperLog.setOperLocation(AddressUtils.getRealAddressByIP(sysOperLog.getOperIp()));
-        sysOperLog.setOperTime(new Date());
-        save(sysOperLog);
+        String location = AddressUtils.getRealAddressByIP(sysOperLog.getOperIp());
+        CompletableFuture.runAsync(() -> {
+            sysOperLog.setOperLocation(location);
+            sysOperLog.setOperTime(new Date());
+            save(sysOperLog);
+        }, threadPoolTaskExecutor);
     }
 }

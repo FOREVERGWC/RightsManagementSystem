@@ -2,15 +2,12 @@ package com.example.system.service.impl;
 
 import com.example.common.constant.CacheConstant;
 import com.example.common.constant.Constant;
-import com.example.common.exception.user.CaptchaErrorException;
-import com.example.common.exception.user.CaptchaExpireException;
-import com.example.common.exception.user.UserRegisterFailedException;
-import com.example.common.exception.user.UserUsernameNotUniqueException;
+import com.example.common.domain.entity.SysUser;
+import com.example.common.exception.user.*;
 import com.example.common.utils.MessageUtils;
 import com.example.common.utils.RedisUtils;
 import com.example.common.utils.SecurityUtils;
 import com.example.common.utils.UserUtils;
-import com.example.common.domain.entity.SysUser;
 import com.example.system.service.ISysLoginInfoService;
 import com.example.system.service.ISysRegisterService;
 import com.example.system.service.ISysUserService;
@@ -28,7 +25,8 @@ public class SysRegisterServiceImpl implements ISysRegisterService {
 
     @Override
     public void register(String username, String password, String code, String uuid) {
-        validateCaptcha(username, code, uuid);
+        validateRegister(); // 校验是否允许注册
+        validateCaptcha(username, code, uuid); // 校验验证码
         registerPreCheck(username);
         SysUser sysUser = SysUser.builder() //
                 .username(username) //
@@ -40,9 +38,18 @@ public class SysRegisterServiceImpl implements ISysRegisterService {
                 .build();
         if (sysUserService.save(sysUser)) {
             sysLoginInfoService.recordSysLoginInfo(username, Constant.REGISTER_SUCCESS, username + MessageUtils.getMsg("user.register.success"));
-            // TODO: 2024/4/10 异步记录日志
         } else {
             throw new UserRegisterFailedException();
+        }
+    }
+
+    /**
+     * 校验是否允许注册
+     */
+    private void validateRegister() {
+        String registerEnabled = "true"; // 获取注册开关
+        if (!("true".equals(registerEnabled))) {
+            throw new UserDisableRegisterException();
         }
     }
 

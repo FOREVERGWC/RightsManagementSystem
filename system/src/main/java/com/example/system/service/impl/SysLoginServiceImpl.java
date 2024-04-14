@@ -4,12 +4,12 @@ import cn.hutool.core.util.StrUtil;
 import com.example.common.constant.CacheConstant;
 import com.example.common.constant.Constant;
 import com.example.common.constant.UserConstant;
+import com.example.common.domain.model.LoginUser;
 import com.example.common.exception.ServiceException;
 import com.example.common.exception.user.*;
 import com.example.common.utils.MessageUtils;
 import com.example.common.utils.RedisUtils;
 import com.example.system.context.AuthenticationContextHolder;
-import com.example.common.domain.model.LoginUser;
 import com.example.system.service.ISysLoginInfoService;
 import com.example.system.service.ISysLoginService;
 import com.example.system.service.ISysTokenService;
@@ -20,6 +20,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class SysLoginServiceImpl implements ISysLoginService {
@@ -35,10 +36,10 @@ public class SysLoginServiceImpl implements ISysLoginService {
     private RedisUtils redisUtils;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public String login(String username, String password, String code, String uuid) {
         validateCaptcha(username, code, uuid); // 校验验证码
         loginPreCheck(username, password); // 密码前置校验
-        // TODO: 2023/12/27 用户校验
         Authentication authentication;
         try {
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
@@ -48,7 +49,6 @@ public class SysLoginServiceImpl implements ISysLoginService {
         } catch (Exception e) {
             if (e instanceof BadCredentialsException) {
                 sysLoginInfoService.recordSysLoginInfo(username, Constant.LOGIN_FAIL, MessageUtils.getMsg("user.not.exists"));
-                // TODO: 2024/1/2 异步记录日志
                 throw new UserNotExistsException();
             } else {
                 sysLoginInfoService.recordSysLoginInfo(username, Constant.LOGIN_FAIL, e.getMessage());
@@ -97,7 +97,6 @@ public class SysLoginServiceImpl implements ISysLoginService {
      * @param password 密码
      */
     private void loginPreCheck(String username, String password) {
-        // TODO: 2023/12/28 错误消息国际化、异步写入信息
         // 用户名或密码为空
         if (StrUtil.isBlank(username) || StrUtil.isBlank(password)) {
             sysLoginInfoService.recordSysLoginInfo(username, Constant.LOGIN_FAIL, MessageUtils.getMsg("not.null"));

@@ -1,9 +1,11 @@
 package com.example.controller.system;
 
+import com.example.common.annotation.Log;
 import com.example.common.constant.UserConstant;
 import com.example.common.domain.R;
 import com.example.common.domain.entity.SysUser;
 import com.example.common.domain.vo.RouterVo;
+import com.example.common.enums.BusinessType;
 import com.example.common.utils.UserUtils;
 import com.example.system.domain.entity.SysMenu;
 import com.example.system.domain.model.LoginBody;
@@ -45,6 +47,7 @@ public class SysLoginController {
      *
      * @return 用户信息
      */
+    @Log(title = "获取信息")
     @GetMapping("/info")
     public R getInfo() {
         SysUser sysUser = UserUtils.getLoginUser().getUser();

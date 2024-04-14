@@ -17,10 +17,6 @@ public class SysRegisterController {
 
     @PostMapping("/register")
     public R register(@Valid @RequestBody RegisterBody registerBody) {
-        String registerEnabled = "true"; // 获取注册开关
-        if (!("true".equals(registerEnabled))) {
-            throw new UserDisableRegisterException();
-        }
         sysRegisterService.register(registerBody.getUsername(), registerBody.getPassword(), registerBody.getCode(), registerBody.getUuid());
         return R.success();
     }
