@@ -25,13 +25,13 @@ public class LoginBody implements Serializable {
     /**
      * 用户名
      */
-    @NotBlank(message = "{user.username.isNotBlank}")
+    @NotBlank(message = "{user.username.notBlank}")
     @Length(min = 2, max = 20, message = "{user.username.not.match}")
     private String username;
     /**
      * 密码
      */
-    @NotBlank(message = "{user.password.isNotBlank}")
+    @NotBlank(message = "{user.password.notBlank}")
     @Length(min = 5, max = 20, message = "{user.password.not.match}")
     private transient String password;
     /**

@@ -44,7 +44,7 @@ public interface ISysRoleService extends IService<SysRole> {
     void status(StatusEditDto dto);
 
     /**
-     * 移除角色
+     * 删除角色
      * @param ids 角色ID列表
      */
     void remove(List<Long> ids);

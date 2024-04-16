@@ -5,7 +5,6 @@ import com.example.common.constant.UserConstant;
 import com.example.common.domain.R;
 import com.example.common.domain.entity.SysUser;
 import com.example.common.domain.vo.RouterVo;
-import com.example.common.enums.BusinessType;
 import com.example.common.utils.UserUtils;
 import com.example.system.domain.entity.SysMenu;
 import com.example.system.domain.model.LoginBody;

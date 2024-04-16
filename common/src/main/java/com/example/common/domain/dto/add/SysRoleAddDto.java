@@ -1,6 +1,5 @@
 package com.example.common.domain.dto.add;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -27,13 +26,13 @@ public class SysRoleAddDto implements Serializable {
      * 角色名称
      */
     @Schema(description = "角色名称")
-    @NotBlank(message = "{role.name.isNotBlank}")
+    @NotBlank(message = "{role.name.notBlank}")
     private String name;
     /**
      * 角色权限字符串
      */
     @Schema(description = "角色权限字符串")
-    @NotBlank(message = "{role.code.isNotBlank}")
+    @NotBlank(message = "{role.code.notBlank}")
     private String code;
     /**
      * 显示顺序

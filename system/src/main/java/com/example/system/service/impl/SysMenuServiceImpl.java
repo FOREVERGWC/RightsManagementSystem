@@ -3,13 +3,13 @@ package com.example.system.service.impl;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.common.constant.Constant;
-import com.example.common.constant.MenuConstant;
-import com.example.common.constant.StatusConstant;
-import com.example.common.constant.VisibleConstant;
+import com.example.common.constant.*;
+import com.example.common.domain.dto.edit.StatusEditDto;
 import com.example.common.domain.entity.SysRole;
 import com.example.common.domain.entity.SysUser;
+import com.example.common.domain.query.MenuQuery;
 import com.example.common.domain.vo.MetaVo;
 import com.example.common.domain.vo.RouterVo;
 import com.example.common.utils.DataUtils;
@@ -18,9 +18,12 @@ import com.example.system.domain.mtm.SysRoleMenu;
 import com.example.system.domain.mtm.SysUserRole;
 import com.example.system.mapper.SysMenuMapper;
 import com.example.system.service.ISysMenuService;
+import com.example.system.service.ISysRoleMenuService;
 import com.github.yulichang.toolkit.JoinWrappers;
 import com.github.yulichang.wrapper.MPJLambdaWrapper;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -32,6 +35,9 @@ import java.util.stream.Collectors;
  */
 @Service
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements ISysMenuService {
+    @Resource
+    private ISysRoleMenuService sysRoleMenuService;
+
     @Override
     public Set<String> getPermsByRoleIds(List<Long> roleIds) {
         if (CollectionUtil.isEmpty(roleIds)) {
@@ -106,6 +112,50 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             routers.add(router);
         }
         return routers;
+    }
+
+    @Override
+    public List<SysMenu> getTree(SysMenu sysMenu) {
+        List<SysMenu> list = lambdaQuery() //
+                .eq(sysMenu.getId() != null, SysMenu::getId, sysMenu.getId()) //
+                .eq(sysMenu.getStatus() != null, SysMenu::getStatus, sysMenu.getStatus()) //
+                .eq(SysMenu::getDeleted, DeleteConstant.NORMAL) //
+                .like(StrUtil.isNotBlank(sysMenu.getName()), SysMenu::getName, sysMenu.getName()) //
+                .eq(sysMenu.getParentId() != null, SysMenu::getParentId, sysMenu.getParentId()) //
+                .orderByAsc(SysMenu::getSort) //
+                .list();
+        return DataUtils.listToTree(list, SysMenu::getParentId, SysMenu::setChildren, SysMenu::getId, 0L);
+    }
+
+    @Override
+    public Page<SysMenu> getPage(MenuQuery query) {
+        return lambdaQuery() //
+                .eq(query.getId() != null, SysMenu::getId, query.getId()) //
+                .eq(query.getStatus() != null, SysMenu::getStatus, query.getStatus()) //
+                .eq(SysMenu::getDeleted, DeleteConstant.NORMAL) //
+                .like(StrUtil.isNotBlank(query.getName()), SysMenu::getName, query.getName()) //
+                .eq(query.getParentId() != null, SysMenu::getParentId, query.getParentId()) //
+                .orderByAsc(SysMenu::getSort) //
+                .page(new Page<>(query.getPageNo(), query.getPageSize()));
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void status(StatusEditDto dto) {
+        List<SysMenu> sysMenus = dto.getIds().stream().map(item -> {
+            SysMenu sysMenu = new SysMenu();
+            sysMenu.setId(item) //
+                    .setStatus(dto.getStatus());
+            return sysMenu;
+        }).toList();
+        updateBatchById(sysMenus);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void remove(List<Long> ids) {
+        sysRoleMenuService.removeByMenuIds(ids);
+        removeBatchByIds(ids);
     }
 
     /**

@@ -1,7 +1,7 @@
 package com.example.system.service;
 
-import com.example.system.domain.mtm.SysRoleMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.system.domain.mtm.SysRoleMenu;
 
 import java.util.List;
 
@@ -12,8 +12,16 @@ import java.util.List;
  */
 public interface ISysRoleMenuService extends IService<SysRoleMenu> {
     /**
-     * 根据角色ID列表移除菜单
+     * 根据角色ID列表移除关联
+     *
      * @param roleIds 角色ID列表
      */
     void removeByRoleIds(List<Long> roleIds);
+
+    /**
+     * 根据菜单ID列表移除关联
+     *
+     * @param menuIds 菜单ID列表
+     */
+    void removeByMenuIds(List<Long> menuIds);
 }

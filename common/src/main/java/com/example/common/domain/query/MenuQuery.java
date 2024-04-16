@@ -1,6 +1,6 @@
 package com.example.common.domain.query;
 
-import com.example.common.domain.entity.SysRole;
+import com.example.system.domain.entity.SysMenu;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -10,7 +10,7 @@ import java.io.Serial;
 
 /**
  * <p>
- * 角色信息查询实体
+ * 菜单查询实体
  * </p>
  */
 @Data
@@ -20,10 +20,10 @@ import java.io.Serial;
 @Accessors(chain = true)
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@Schema(name = "Role", description = "角色信息查询实体")
-public class RoleQuery extends SysRole {
+@Schema(name = "Menu", description = "菜单查询实体")
+public class MenuQuery extends SysMenu {
     @Serial
-    private static final long serialVersionUID = -9108217950744766643L;
+    private static final long serialVersionUID = 6669287146737434799L;
     /**
      * 页码
      */

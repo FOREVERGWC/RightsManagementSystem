@@ -32,13 +32,13 @@ public class SysRoleEditDto implements Serializable {
      * 角色名称
      */
     @Schema(description = "角色名称")
-    @NotBlank(message = "{role.name.isNotBlank}")
+    @NotBlank(message = "{role.name.notBlank}")
     private String name;
     /**
      * 角色权限字符串
      */
     @Schema(description = "角色权限字符串")
-    @NotBlank(message = "{role.code.isNotBlank}")
+    @NotBlank(message = "{role.code.notBlank}")
     private String code;
     /**
      * 显示顺序
