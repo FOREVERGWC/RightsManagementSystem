@@ -93,16 +93,16 @@ public class SysMenuController {
     }
 
     @Log(title = "菜单管理", businessType = BusinessType.UPDATE)
-    @PreAuthorize("hasAuthority('system:menu:edit')")
     @PutMapping("/status")
+    @PreAuthorize("hasAuthority('system:menu:edit')")
     public R status(@RequestBody StatusEditDto dto) {
         sysMenuService.status(dto);
         return R.success(MsgConstant.EDIT_SUCCESS);
     }
 
     @Log(title = "菜单管理", businessType = BusinessType.DELETE)
-    @PreAuthorize("hasAuthority('system:menu:remove')")
     @DeleteMapping
+    @PreAuthorize("hasAuthority('system:menu:remove')")
     public R remove(@RequestBody List<Long> ids) {
         sysMenuService.remove(ids);
         return R.success(MsgConstant.DELETE_SUCCESS);

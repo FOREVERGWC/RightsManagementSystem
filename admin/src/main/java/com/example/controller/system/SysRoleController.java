@@ -76,16 +76,16 @@ public class SysRoleController {
     }
 
     @Log(title = "角色管理", businessType = BusinessType.UPDATE)
-    @PreAuthorize("hasAuthority('system:role:edit')")
     @PutMapping("/status")
+    @PreAuthorize("hasAuthority('system:role:edit')")
     public R status(@RequestBody StatusEditDto dto) {
         sysRoleService.status(dto);
         return R.success(MsgConstant.EDIT_SUCCESS);
     }
 
     @Log(title = "角色管理", businessType = BusinessType.DELETE)
-    @PreAuthorize("hasAuthority('system:role:remove')")
     @DeleteMapping
+    @PreAuthorize("hasAuthority('system:role:remove')")
     public R remove(@RequestBody List<Long> ids) {
         sysRoleService.remove(ids);
         return R.success(MsgConstant.DELETE_SUCCESS);
